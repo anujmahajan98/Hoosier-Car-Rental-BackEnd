@@ -11,6 +11,8 @@ const { savePayment } = require('./savePayments');
 // const { AddNewCar } = require('./AddNewCar');
 const { userList } = require('./userList')
 const { carList } = require('./AddNewCar')
+const { CarListingForm } = require('./CarListingForm');
+const { ownerBookingDetails } = require('./ownerBookingDetails');
 require("dotenv").config()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 // const RegisterModel = require('./signup');
@@ -67,23 +69,27 @@ app.post('/resetPassword', (req, res) => {
   app.post('/payment', (req, res) => {
     console.log('payment')
 
-    let { amount, id } = req.body
+    var { amount, id, email } = req.body
     console.log(amount)
     console.log(id)
+    console.log(email)
     try {
       const payment = stripe.paymentIntents.create({
         amount,
         currency: "USD",
+        // payment_method_types: ['card'],
+        receipt_email: email,
         description: "Hoosier Rentals",
         payment_method: id,
         confirm: true
       })
       console.log("Payment", payment)
+      savePayment(req, res)
       res.json({
         message: "Payment successful",
         success: true,
       })
-      savePayment(req, res)
+      res.send();
     } catch (error) {
       console.log("Error", error)
       res.json({
@@ -102,6 +108,17 @@ app.post('/resetPassword', (req, res) => {
     console.log('CarList')
     carList(req,res);
     })
+
+    app.post('/CarListingForm', (req, res) => {
+      console.log('CarListingForm')
+      console.log(req.body.userEmail)
+      CarListingForm(req, res);
+    });
+
+  app.post('/ownerBookingDetails',(req,res) => {
+      console.log('OwnerBookingDetails 1')
+      ownerBookingDetails(req,res);
+  });
 
 var port = process.env.port || 5001
 
