@@ -75,7 +75,7 @@ app.post('/resetPassword', (req, res) => {
     console.log(email)
     try {
       const payment = stripe.paymentIntents.create({
-        amount,
+        amount: amount * 100,
         currency: "USD",
         // payment_method_types: ['card'],
         receipt_email: email,
