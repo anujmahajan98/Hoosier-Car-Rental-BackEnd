@@ -22,7 +22,7 @@ var savePaymentSchema = new mongoose.Schema({
 
 async function savePayment(req, res) {
     let id = req.body.id;
-    let amount = req.body.amount * 100;
+    let amount = req.body.amount;
     let email = req.body.email;
     let paymentDate = req.body.paymentDate;
     try {
