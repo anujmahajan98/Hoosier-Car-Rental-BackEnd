@@ -11,6 +11,8 @@ const { savePayment } = require('./savePayments');
 // const { AddNewCar } = require('./AddNewCar');
 const { userList } = require('./userList')
 const { carList } = require('./AddNewCar')
+const { approveCar } = require('./ApproveCar');
+const { rejectCar } = require('./RejectCar');
 const { CarListingForm } = require('./CarListingForm');
 const { ownerBookingDetails } = require('./ownerBookingDetails');
 require("dotenv").config()
@@ -119,6 +121,16 @@ app.post('/resetPassword', (req, res) => {
       console.log('OwnerBookingDetails 1')
       ownerBookingDetails(req,res);
   });
+
+app.post('/ApproveCar',(req,res) => {
+    console.log('Car Approved')
+    approveCar(req,res);
+})
+
+app.post('/RejectCar',(req,res) => {
+    console.log('Car Rejected')
+    rejectCar(req,res);
+})
 
 var port = process.env.port || 5001
 
