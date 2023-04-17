@@ -5,7 +5,7 @@ var addNewCarSchema = new mongoose.Schema({
   ownerName: {
         type: String,
     },
-    carModel: {
+    carCompany: {
         type: String,
     },
     carType: {
@@ -17,7 +17,7 @@ async function carList(req, res) {
     try {
       await mongoose.connect(uri);
       console.log("Fetching car List from DB");
-      const docs = await addNewCarModel.find({}, { ownerName: 1, carModel: 1, carType: 1}).exec();
+      const docs = await addNewCarModel.find({approved: false}).exec();
       console.log(docs)
       console.log(typeof(docs))
         res.send(docs);
@@ -28,6 +28,45 @@ async function carList(req, res) {
       mongoose.connection.close();
     }
   }
+
+
+
+// async function handleApprove (req,res) (id) => {
+//     fetch(`http://localhost:8000/approveCar/${id}`, {
+//   method: 'PUT',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({})
+// })
+// .then(response => response.text())
+// .then(data => {
+//   console.log(`Car with id ${id} has been approved`);
+//   // Update the carData state to remove the car that was approved
+//   const docs = await addNewCarModel.findOneAndUpdate({_id: ObjectId(id)},{ap_nap: true}).exec();
+//       console.log(docs)
+//       console.log(typeof(docs))
+//         res.send(docs);
+//   setCarData(prevCarData => prevCarData.filter(car => car._id !== id));
+// })
+// .catch(error => {
+//   console.error(error);
+// });
+//   };
+
+// const handleReject = (id) => {
+//     fetch(`http://localhost:8000/rejectCar/${id}`, {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({})
+// })
+// .then(response => response.text())
+// .then(data => {
+//   console.log(data);
+//   // handle the response data here, such as updating the UI to reflect the rejected car
+// })
+// .catch(error => {
+//   console.error(error);
+// });
+//   };
 
 const addNewCarModel = mongoose.model('addNewCar', addNewCarSchema)
  
