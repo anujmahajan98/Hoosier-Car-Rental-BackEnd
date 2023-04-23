@@ -149,6 +149,6 @@ app.post('/RejectCar',(req,res) => {
 var port = process.env.port || 5001
 
 app.listen(port, () => {
-  console.log('Hey')
+  console.log('Hey , I am UP')
   console.log('Server is running on http://localhost:5001');
 });
