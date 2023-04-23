@@ -15,6 +15,9 @@ const { approveCar } = require('./ApproveCar');
 const { rejectCar } = require('./RejectCar');
 const { CarListingForm } = require('./CarListingForm');
 const { ownerBookingDetails } = require('./ownerBookingDetails');
+//raja - 23rd april
+const { getCarInfo } = require('./ownercars');
+//raja - 23rd april
 require("dotenv").config()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 // const RegisterModel = require('./signup');
@@ -68,30 +71,40 @@ app.post('/resetPassword', (req, res) => {
     resetPassowrd(req, res);
   });
 
-  app.post('/payment', (req, res) => {
-    console.log('payment')
+  //raja - 23rd april
+  app.post('/ownercars',(req,res) => {
+  
+    console.log('Owner Cars');
+    getCarInfo(req,res);
 
-    var { amount, id, email } = req.body
-    console.log(amount)
-    console.log(id)
-    console.log(email)
+    
+  })
+
+  app.post('/payment', (req, res) => {
+    console.log('Booking payment')
+
+    let { PaymentId,price, ownerEmail, userEmail, carType, carModel, carCompany,
+          carNumber, ownerName, paymentDate } = req.body
+    console.log(price)
+    console.log(PaymentId)
+    console.log(userEmail)
+    console.log(paymentDate)
     try {
       const payment = stripe.paymentIntents.create({
-        amount: amount * 100,
+        amount: price * 100,
         currency: "USD",
-        // payment_method_types: ['card'],
-        receipt_email: email,
+        receipt_email: userEmail,
         description: "Hoosier Rentals",
-        payment_method: id,
+
+        payment_method: PaymentId,
         confirm: true
       })
       console.log("Payment", payment)
-      savePayment(req, res)
       res.json({
         message: "Payment successful",
         success: true,
       })
-      res.send();
+      savePayment(req, res)
     } catch (error) {
       console.log("Error", error)
       res.json({
@@ -100,8 +113,9 @@ app.post('/resetPassword', (req, res) => {
       })
     }
   });
+//raja - 23rd april
 
-  app.post('/userList', (req, res) => {
+app.post('/userList', (req, res) => {
     console.log('User List')
     userList(req, res);
   });
