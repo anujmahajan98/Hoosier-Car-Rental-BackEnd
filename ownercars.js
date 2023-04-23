@@ -96,6 +96,6 @@ async function getCarInfo(req,res){
 
 app.get('/UserView', getCarInfo);
 
-const OwnerCars = mongoose.model('Cars', ownerCarsSchema)
+const OwnerCars = mongoose.model('getCarInfo', ownerCarsSchema)
  
 module.exports = { OwnerCars, getCarInfo }
