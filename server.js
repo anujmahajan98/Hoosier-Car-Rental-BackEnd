@@ -74,11 +74,11 @@ app.post('/resetPassword', (req, res) => {
   //raja - 23rd april
   app.post('/ownercars',(req,res) => {
   
-    console.log('Owner Cars');
+    console.log('Owner Cars')
     getCarInfo(req,res);
 
     
-  })
+  });
 
   app.post('/payment', (req, res) => {
     console.log('Booking payment')
