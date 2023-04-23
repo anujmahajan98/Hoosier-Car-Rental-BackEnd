@@ -90,11 +90,11 @@ async function getCarInfo(req,res){
         res.status(404).send("Error");
     }
     finally{
-        mongoose.connection.close();
+//         mongoose.connection.close();
     }
 };
 
-app.get('/UserView', getCarInfo);
+// app.get('/UserView', getCarInfo);
 
 const OwnerCars = mongoose.model('getCarInfo', ownerCarsSchema)
  
