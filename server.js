@@ -99,12 +99,12 @@ app.post('/resetPassword', (req, res) => {
         payment_method: PaymentId,
         confirm: true
       })
-      console.log("Payment", payment)
+      savePayment(req, res)
       res.json({
         message: "Payment successful",
         success: true,
       })
-      savePayment(req, res)
+      res.send();
     } catch (error) {
       console.log("Error", error)
       res.json({
