@@ -11,6 +11,9 @@ var addNewCarSchema = new mongoose.Schema({
     carType: {
         type: String,
     },
+    image: {
+      type: String,
+  },
 }, { collection: 'OwnerCarDetails' });
 
 async function carList(req, res) {
