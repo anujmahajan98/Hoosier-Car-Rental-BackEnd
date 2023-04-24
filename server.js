@@ -16,6 +16,7 @@ const { rejectCar } = require('./RejectCar');
 const { CarListingForm } = require('./CarListingForm');
 const { ownerBookingDetails } = require('./ownerBookingDetails');
 //raja - 23rd april
+const { getBookingHistory } = require('./bookinghistory');
 const { getCarInfo } = require('./ownercars');
 //raja - 23rd april
 require("dotenv").config()
@@ -77,6 +78,13 @@ app.post('/resetPassword', (req, res) => {
     console.log('Owner Cars')
     getCarInfo(req,res);
 
+    
+  });
+  
+app.post('/bookinghistory',(req,res) => {
+  
+    console.log('User Booking History');
+    getBookingHistory(req,res);
     
   });
 
