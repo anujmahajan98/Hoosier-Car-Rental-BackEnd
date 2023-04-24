@@ -50,7 +50,8 @@ async function getBookingHistory(req,res){
     try{
     
       console.log("Fetching data for booking history details");
-      console.log("paymentDate is -->",paymentDate);
+    //   console.log("paymentDate is -->",paymentDate);
+      console.log("userEmail is -->",userEmail);
       
       var docs = await BookingHistory.find({ userEmail: userEmail})
       .select('ownerName ownerEmail carCompany carModel carType carNumber price PaymentId paymentDate').exec();
