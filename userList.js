@@ -18,7 +18,6 @@ async function userList(req, res) {
       await mongoose.connect(uri);
       console.log("Fetching user List from DB");
       const docs = await UserListModel.find({}, { username: 1, email: 1 }).exec();
-      console.log(docs);
         res.send(docs);
     } catch (error) {
       console.error(error);

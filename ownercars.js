@@ -46,7 +46,10 @@ var ownerCarsSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    
+    image:{
+        type: String,
+        required: false
+    },
 }, { collection: 'OwnerCarDetails' });
 
 async function getCarInfo(req,res){
@@ -71,9 +74,9 @@ async function getCarInfo(req,res){
       let days = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)); // Calculate the difference between startDate and endDate in days
 
       var docs = await OwnerCars.find({ carType: carType,startDate : {$lte:new Date(startDate)}, endDate:{$gte:new Date(endDate)}, approved:true})
-      .select('ownerName carCompany carModel carType ownerEmail carNumber price').exec();
+      .select('ownerName carCompany carModel carType ownerEmail carNumber price image').exec();
     
-    // console.log(docs);
+    console.log(docs);
     const modifiedDocs = docs.map(doc => {
         if (days <= 1) {
           doc.price = doc.price * days; // Update the price for rentals less than or equal to 1 day
